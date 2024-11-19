@@ -8,10 +8,12 @@ import { CiLight } from "react-icons/ci";
 import { MdDarkMode } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { Oval } from "react-loader-spinner";
+import { ClipLoader } from "react-spinners";
+
 
 const MainLayout = () => {
   const dispatch = useDispatch();
-  const { data, error } = useSelector((state) => state.countries);
+  const { data, error, loading } = useSelector((state) => state.countries);
   const [searchBy, setSearchBy] = useState("name");
   const [searchText, setSearchText] = useState("");
   const [bgColor, setBgColor] = useState(true);
@@ -34,7 +36,6 @@ const MainLayout = () => {
     <div
       className={`${bgColor ? "bg-white text-black" : "bg-black text-white"} `}
     >
-      {/* Navbar */}
       <section className="w-full">
         <nav className="w-full h-16 flex justify-between border-b-2 shadow-md p-4">
           <div className="flex gap-2">
@@ -53,7 +54,6 @@ const MainLayout = () => {
         </nav>
       </section>
 
-      {/* Main */}
       <section className="w-full ">
         <div className="max-w-[1200px] w-[80vw] mx-auto flex flex-col md:flex gap-5 p-4 ">
           <div>
@@ -98,32 +98,44 @@ const MainLayout = () => {
     
       "
       >
-        {data.length > 0 && !error ? (
-          data.map((val, ind) => (
-            <>
-              <Link to={`/CountryDetails/${val.name.common}`}>
-                <Card country={val} key={ind} />
-              </Link>
-            </>
-          ))
+        {loading ? (
+          <div className="flex justify-center items-center h-96">
+            {/* <Oval
+              visible={true}
+              height="80"
+              width="80"
+              color="#4fa94d"
+              ariaLabel="oval-loading"
+            /> */}
+            <ClipLoader color="#4fa94d" size={80} loading={true} />;
+          </div>
         ) : (
-          <div>
-            {error ? (
-              <div>No Countries Found</div>
+          <>
+            {data.length > 0 && !error ? (
+              data.map((val, ind) => (
+                <Link to={`/CountryDetails/${val.name.common}`}>
+                  <Card country={val} key={ind} />
+                </Link>
+              ))
             ) : (
-              <div className="flex justify-center h-screen mt-10">
-                <Oval
-                  visible={true}
-                  height="80"
-                  width="80"
-                  color="#4fa94d"
-                  ariaLabel="oval-loading"
-                  wrapperStyle={{}}
-                  wrapperClass=""
-                />
+              <div className="flex justify-center items-center h-96">
+                {error ? (
+                  <div className="text-xl font-semibold text-red-500">
+                    No Countries Found
+                  </div>
+                ) : (
+                  // <Oval
+                  //   visible={true}
+                  //   height="1000"
+                  //   width="80"
+                  //   color="#4fa94d"
+                  //   ariaLabel="oval-loading"
+                  // />
+                  <ClipLoader color="#4fa94d" size={80} loading={true} />
+                )}
               </div>
             )}
-          </div>
+          </>
         )}
       </section>
     </div>
