@@ -57,7 +57,7 @@ const MainLayout = () => {
             <div className="text-xl font-serif mt-1">Country Explorer</div>
           </div>
 
-          <div onClick={() => setBgColor((val) => !val)} className="p-1">
+          <div onClick={() => setBgColor((val) => !val)} className="p-1  cursor-pointer">
             {bgColor ? (
               <MdDarkMode className="text-3xl" />
             ) : (
@@ -125,14 +125,11 @@ const MainLayout = () => {
               ))
             ) : (
               <div className="flex justify-center items-center h-96">
-                {/* {error ? ( */}
+              
                 <div className="text-xl font-semibold text-red-500">
                   No Countries Found
                 </div>
-                {/* ) : (
-                 
-                  <ClipLoader color="#4fa94d" size={80} loading={true} />
-                )} */}
+                
               </div>
             )}
           </>

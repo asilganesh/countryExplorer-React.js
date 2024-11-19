@@ -3,10 +3,7 @@ import React, { useEffect } from "react";
 
 const Card = ({ country }) => {
   useEffect(() => {
-    // AOS.init({
-    //   duration: 1000,
-    //   once: true,
-    // });
+   
   }, []);
 
   return (
