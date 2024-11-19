@@ -113,7 +113,7 @@ const MainLayout = () => {
       >
         {loading ? (
           <div className="flex justify-center items-center h-96">
-            <ClipLoader color="#4fa94d" size={80} loading={true} />;
+            <ClipLoader color="#4fa94d" size={80} loading={true} />
           </div>
         ) : (
           <>
@@ -139,8 +139,8 @@ const MainLayout = () => {
         )}
       </section>
 
-      <section>
-        <Pagination
+      <section className={`${data.length > cardsPerPage ? "flex" : "hidden"}`}>
+      <Pagination 
           cardsPerPage={cardsPerPage}
           totalCards={data.length}
           paginate={paginate}

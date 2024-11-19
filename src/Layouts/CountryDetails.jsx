@@ -109,14 +109,23 @@ const CountryDetails = () => {
               ))}
             </div>
 
-            <div className="border p-3 text-start rounded-xl text-lg flex justify-center bg-red-300 transform transition hover:scale-95">
               <Link to={countryDetails.maps?.googleMaps}>
+            <div className="border p-3 text-start rounded-xl text-lg flex justify-center bg-red-300 transform transition hover:scale-95">
                 {" "}
                 <span className="font-semibold text-center">
                   View On Maps
                 </span>{" "}
-              </Link>
             </div>
+              </Link>
+
+              <Link to='/exploreCountries'>
+            <div className="border p-3 text-start rounded-xl text-lg flex justify-center bg-blue-300 transform transition hover:scale-95">
+                {" "}
+                <span className="font-semibold text-center">
+                  Go Back
+                </span>{" "}
+            </div>
+              </Link>
           </>
         )}
       </section>
