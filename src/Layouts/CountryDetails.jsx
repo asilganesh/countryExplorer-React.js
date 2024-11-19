@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCountryByName } from "../Redux/countriesSlice";
 import { Link, useParams } from "react-router-dom";
-import AOS from "aos";
 import "aos/dist/aos.css";
+import globeImage from '../assets/globe.jpg';
 
 const CountryDetails = () => {
   const dispatch = useDispatch();
@@ -36,10 +36,16 @@ const CountryDetails = () => {
   };
 
   return (
-    <div className="home  mx-auto  flex justify-center bg-purple-100 h-full">
+    <div className="  mx-auto  flex justify-center  h-full "
+    style={{
+      backgroundImage: `url(${globeImage})`,
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+    }}
+    >
       <section
         data-aos="zoom-in"
-        className="flex flex-col  py-5 px-5  gap-2 bg-slate-50"
+        className="flex flex-col  py-5 px-5  gap-2 bg-slate-50 mt-5"
       >
         <div className="border p-5 text-center rounded-xl text-lg">
           {" "}
