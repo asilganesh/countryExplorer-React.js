@@ -5,12 +5,7 @@ import "aos/dist/aos.css";
 
 const Starting = () => {
 
-    useEffect(() => {
-        AOS.init({
-          duration: 1000, 
-          once: true, 
-        });
-      }, []);
+    
   return (
     <div className='w-full h-full flex flex-col gap-5 justify-center items-center h-screen ' >
 

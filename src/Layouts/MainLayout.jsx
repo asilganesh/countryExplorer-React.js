@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { CiLight } from "react-icons/ci";
 import { MdDarkMode } from "react-icons/md";
 import { Link } from "react-router-dom";
-import { Oval } from "react-loader-spinner";
 import { ClipLoader } from "react-spinners";
 import Pagination from "../Components/Pagination";
 
@@ -15,7 +14,6 @@ const MainLayout = () => {
   const dispatch = useDispatch();
   const { data, error, loading } = useSelector((state) => state.countries);
   const [searchBy, setSearchBy] = useState("name");
-  const [searchText, setSearchText] = useState("");
   const [bgColor, setBgColor] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [cardsPerPage, setcardsPerPage] = useState(16);

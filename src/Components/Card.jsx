@@ -2,9 +2,7 @@ import React, { useEffect } from "react";
 
 
 const Card = ({ country }) => {
-  useEffect(() => {
-   
-  }, []);
+ 
 
   return (
 <div   data-aos="flip-up">
