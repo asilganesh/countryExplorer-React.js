@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { FaGlobeAfrica } from "react-icons/fa";
 import Card from "../Components/Card";
 import fetchCountriesAsync from "../api/fetchCountries";
@@ -21,7 +21,6 @@ const MainLayout = () => {
   const [cardsPerPage, setcardsPerPage] = useState(16);
 
   useEffect(() => {
-   
     dispatch(fetchCountries());
   }, []);
 
@@ -35,15 +34,16 @@ const MainLayout = () => {
 
   const indexOfLastCard = currentPage * cardsPerPage;
   const indexOfFirstCard = indexOfLastCard - cardsPerPage;
-  const currentCards = data.slice(indexOfFirstCard, indexOfLastCard);
 
-  const paginate=(pageNumber)=>{
-    setCurrentPage(pageNumber)
+  const currentCards = [...data.slice(indexOfFirstCard, indexOfLastCard)];
+
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
     window.scrollTo({
       top: 0,
       behavior: "smooth",
     });
-}
+  };
 
   return (
     <div
@@ -113,12 +113,11 @@ const MainLayout = () => {
       >
         {loading ? (
           <div className="flex justify-center items-center h-96">
-           
             <ClipLoader color="#4fa94d" size={80} loading={true} />;
           </div>
         ) : (
           <>
-            {currentCards.length > 0  ? (
+            {currentCards.length > 0 && data.length > 0 ? (
               currentCards.map((val, ind) => (
                 <Link to={`/CountryDetails/${val.name.common}`}>
                   <Card country={val} key={ind} />
@@ -127,9 +126,9 @@ const MainLayout = () => {
             ) : (
               <div className="flex justify-center items-center h-96">
                 {/* {error ? ( */}
-                  <div className="text-xl font-semibold text-red-500">
-                    No Countries Found
-                  </div>
+                <div className="text-xl font-semibold text-red-500">
+                  No Countries Found
+                </div>
                 {/* ) : (
                  
                   <ClipLoader color="#4fa94d" size={80} loading={true} />
@@ -141,8 +140,12 @@ const MainLayout = () => {
       </section>
 
       <section>
-      <Pagination cardsPerPage={cardsPerPage} totalCards={data.length} paginate={paginate} currentPage={currentPage}/>
-
+        <Pagination
+          cardsPerPage={cardsPerPage}
+          totalCards={data.length}
+          paginate={paginate}
+          currentPage={currentPage}
+        />
       </section>
     </div>
   );
