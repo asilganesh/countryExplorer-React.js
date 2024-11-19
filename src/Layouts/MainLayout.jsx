@@ -9,7 +9,7 @@ import { MdDarkMode } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { Oval } from "react-loader-spinner";
 import { ClipLoader } from "react-spinners";
-
+import Pagination from "../Components/Pagination";
 
 const MainLayout = () => {
   const dispatch = useDispatch();
@@ -17,8 +17,11 @@ const MainLayout = () => {
   const [searchBy, setSearchBy] = useState("name");
   const [searchText, setSearchText] = useState("");
   const [bgColor, setBgColor] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [cardsPerPage, setcardsPerPage] = useState(16);
 
   useEffect(() => {
+   
     dispatch(fetchCountries());
   }, []);
 
@@ -30,7 +33,17 @@ const MainLayout = () => {
     }
   };
 
-  console.log(searchBy);
+  const indexOfLastCard = currentPage * cardsPerPage;
+  const indexOfFirstCard = indexOfLastCard - cardsPerPage;
+  const currentCards = data.slice(indexOfFirstCard, indexOfLastCard);
+
+  const paginate=(pageNumber)=>{
+    setCurrentPage(pageNumber)
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+}
 
   return (
     <div
@@ -100,43 +113,36 @@ const MainLayout = () => {
       >
         {loading ? (
           <div className="flex justify-center items-center h-96">
-            {/* <Oval
-              visible={true}
-              height="80"
-              width="80"
-              color="#4fa94d"
-              ariaLabel="oval-loading"
-            /> */}
+           
             <ClipLoader color="#4fa94d" size={80} loading={true} />;
           </div>
         ) : (
           <>
-            {data.length > 0 && !error ? (
-              data.map((val, ind) => (
+            {currentCards.length > 0  ? (
+              currentCards.map((val, ind) => (
                 <Link to={`/CountryDetails/${val.name.common}`}>
                   <Card country={val} key={ind} />
                 </Link>
               ))
             ) : (
               <div className="flex justify-center items-center h-96">
-                {error ? (
+                {/* {error ? ( */}
                   <div className="text-xl font-semibold text-red-500">
                     No Countries Found
                   </div>
-                ) : (
-                  // <Oval
-                  //   visible={true}
-                  //   height="1000"
-                  //   width="80"
-                  //   color="#4fa94d"
-                  //   ariaLabel="oval-loading"
-                  // />
+                {/* ) : (
+                 
                   <ClipLoader color="#4fa94d" size={80} loading={true} />
-                )}
+                )} */}
               </div>
             )}
           </>
         )}
+      </section>
+
+      <section>
+      <Pagination cardsPerPage={cardsPerPage} totalCards={data.length} paginate={paginate} currentPage={currentPage}/>
+
       </section>
     </div>
   );
